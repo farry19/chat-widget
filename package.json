@@ -1,0 +1,28 @@
+{
+  "name": "main.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "socket.io-client": "^4.7.2",
+    "yarn": "^1.22.19"
+  },
+  "main": "main.js",
+  "repository": "git+https://github.com/farry19/chat-widget.git",
+  "keywords": [],
+  "author": "<hsherazch321@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/farry19/chat-widget/issues"
+  },
+  "homepage": "https://github.com/farry19/chat-widget#readme",
+  "description": ""
+}
