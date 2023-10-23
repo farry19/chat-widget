@@ -11,10 +11,7 @@
   "devDependencies": {
     "vite": "^4.4.5"
   },
-  "dependencies": {
-    "socket.io-client": "^4.7.2",
-    "yarn": "^1.22.19"
-  },
+  "dependencies": {},
   "main": "main.js",
   "repository": "git+https://github.com/farry19/chat-widget.git",
   "keywords": [],

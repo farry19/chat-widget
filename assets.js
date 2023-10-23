@@ -116,7 +116,7 @@ export const styles = `
         list-style:none;
         margin-left:-15px;
     }
-    #widget__chat ul .customer-msg{
+    #widget__chat ul .visitor-msg{
         float: left;
         color: #878484;
         position: relative;
@@ -130,7 +130,7 @@ export const styles = `
         max-width: 81%;
         font: 12px/16px "Noto Sans", sans-serif;
     }
-    #widget__chat ul .customer-msg:before {
+    #widget__chat ul .visitor-msg:before {
         position: absolute;
         top: 0px;
         width: 25px;
@@ -141,7 +141,7 @@ export const styles = `
         left: -32px;
         background-image: url(https://github.com/ortichon.png);
     }
-    #widget__chat ul .customer-msg:after {
+    #widget__chat ul .visitor-msg:after {
         border-left: 10px solid #ffffff00;
         left: -10px;
         position: absolute;
@@ -151,7 +151,7 @@ export const styles = `
         height: 0;
         border-top: 10px solid #ffffff;
     }
-    #widget__chat ul .reply-msg {
+    #widget__chat ul .agent-msg {
         float: right;
         color: black;
         position: relative;
@@ -165,7 +165,7 @@ export const styles = `
         word-wrap: break-word;
         max-width: 81%;
     }
-    #widget__chat ul .reply-msg:before {
+    #widget__chat ul .agent-msg:before {
         position: absolute;
         top: -5px;
         width: 25px;
@@ -176,7 +176,7 @@ export const styles = `
         right: -35px;
         background-image: url(https://github.com/Thatkookooguy.png);
     }
-    #widget__chat ul .reply-msg:after {
+    #widget__chat ul .agent-msg:after {
         position: absolute;
         top: 10px;
         content: "";

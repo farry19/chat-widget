@@ -1,22 +1,23 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
 import { styles, CLOSE_ICON, MESSAGE_ICON } from './assets.js'
 
+const ENDPOINT = `http://localhost:8080`
+const API_ENDPOINT = `${ENDPOINT}/api/v1/widget-settings`
+const WS_ENDPOINT = `${ENDPOINT}`
+
 class FrontlineWidget {
   constructor(position = 'bottom-right') {
     const frontline_widget = document.getElementById('frontline-widget')
 
-    this.department_id = frontline_widget.getAttribute('data-o')
-    this.organization_id = frontline_widget.getAttribute('data-d')
+    this.organization_id = frontline_widget.getAttribute('data-o')
+    this.department_id = frontline_widget.getAttribute('data-d')
 
     this.position = this.getPosition(position)
     this.open = false
+    this.settings = {}
     this.initialize()
-    this.injectStyles()
-    this._io = io('http://localhost:8080')
-
-    this._io.on('user_connected', payload => {
-      console.log('Org Users : ', payload)
-    })
+    this.injectStyles(this.settings)
+    this._io = io(WS_ENDPOINT)
   }
 
   position = ''
@@ -24,6 +25,8 @@ class FrontlineWidget {
   widgetContent = null
   __name = null
   __email = null
+
+  agent = null
 
   getPosition(position) {
     const [vertical, horizontal] = position.split('-')
@@ -36,11 +39,21 @@ class FrontlineWidget {
 
   async initialize() {
     /**
+     * Get the widget saved settings
+     */
+
+    fetch(`${API_ENDPOINT}?o=${this.organization_id}&d=${this.department_id}`)
+      .then(response => response.json())
+      .then(response => {
+        // console.log('Response : ', response)
+      })
+    /**
      * Create and append a div element to the document body
      */
 
     const container = document.createElement('div')
     container.style.position = 'fixed'
+
     Object.keys(this.position).forEach(
       key => (container.style[key] = this.position[key])
     )
@@ -75,6 +88,10 @@ class FrontlineWidget {
     buttonContainer.appendChild(this.closeIcon)
     buttonContainer.addEventListener('click', this.toggleOpen.bind(this))
 
+    const inputChatWidget = document.createElement('input')
+    inputChatWidget.classList.add('chat__input')
+    inputChatWidget.id = 'chat__input'
+
     // buttonContainer.addEventListener('click', this.toggleOpen.bind(this))
 
     /**
@@ -91,8 +108,25 @@ class FrontlineWidget {
     /**
      * Append the widget's content and the button to the container
      */
+
+    this.widgetContainer.appendChild(inputChatWidget)
+
     container.appendChild(this.widgetContainer)
     container.appendChild(buttonContainer)
+
+    inputChatWidget.addEventListener('keypress', e => {
+      if (e.key === 'Enter') {
+        const payload = {
+          message: { text: e.target.value, type: 'visitor', to: this.agent },
+          sender: { name: this.__name, email: this.__email },
+        }
+
+        this._io.emit('from_visitor', payload)
+
+        this.appendMessage(payload.message)
+        e.target.value = ''
+      }
+    })
   }
 
   createWidgetContent() {
@@ -111,20 +145,11 @@ class FrontlineWidget {
             </div>
         </form>
         <div id="widget__chat" class="widget__hidden">
-          <ul>
-            <li class="customer-msg">Message 1</li>
-            <li class="reply-msg">Reply 1</li>
-            <li class="customer-msg">Message 2</li>
-            <li class="reply-msg">Reply 2</li>
-            <li class="customer-msg">Message 3</li>
-            <li class="reply-msg">Reply 3</li>
-            <li class="customer-msg">Message 4</li>
-            <li class="reply-msg">Reply 4</li>
-            <li class="customer-msg">Message 5</li>
-            <li class="reply-msg">Reply 5</li>
+          <ul id="widget__messages">
+            
           </ul>
 
-          <input type="text" class="chat__input" />
+          
         </div>
       </main>
     `
@@ -222,9 +247,22 @@ class FrontlineWidget {
       this.connect(name, email, this.organization_id, this.department_id)
 
       this._io.on('message_received', message => {
-        console.log('Message : ', message)
+        this.agent = message.sender
+        this.appendMessage(message)
       })
     }
+  }
+
+  appendMessage(message) {
+    const ul = document.getElementById('widget__messages')
+    const li = document.createElement('li')
+    li.classList.add(
+      `${message.type === 'visitor' ? 'visitor-msg' : 'agent-msg'}`
+    )
+
+    li.innerHTML = message.text
+
+    ul.appendChild(li)
   }
 }
 
