@@ -42,11 +42,11 @@ class FrontlineWidget {
      * Get the widget saved settings
      */
 
-    fetch(`${API_ENDPOINT}?o=${this.organization_id}&d=${this.department_id}`)
-      .then(response => response.json())
-      .then(response => {
-        // console.log('Response : ', response)
-      })
+    // fetch(`${API_ENDPOINT}?o=${this.organization_id}&d=${this.department_id}`)
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     // console.log('Response : ', response)
+    //   })
     /**
      * Create and append a div element to the document body
      */
@@ -222,7 +222,7 @@ class FrontlineWidget {
       email,
       organization_id,
       department_id,
-      type: 'v',
+      type: 'visitor',
     })
   }
 
