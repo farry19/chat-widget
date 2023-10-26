@@ -121,7 +121,7 @@ class FrontlineWidget {
           sender: { name: this.__name, email: this.__email },
         }
 
-        this._io.emit('from_visitor', payload)
+        this._io.emit('message', payload)
 
         this.appendMessage(payload.message)
         e.target.value = ''
@@ -174,10 +174,10 @@ class FrontlineWidget {
       this.__email.type = 'text'
 
       if (name && email) {
-        this.__email.value = email
-        this.__name.value = name
+        this.__email = email
+        this.__name = name
 
-        this.startChat(this.__name.value, this.__email.value)
+        this.startChat(this.__name, this.__email)
       } else {
         const widget__form = document.getElementById('widget__form')
         const form__name = document.getElementById('form__name')
@@ -230,7 +230,9 @@ class FrontlineWidget {
     var validRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-    if (email.match(validRegex) && name.value !== '') {
+    console.log('Email : ', email)
+
+    if (email.match(validRegex) && name !== '') {
       const widget__form = document.getElementById('widget__form')
       const widget__chat = document.getElementById('widget__chat')
 
@@ -246,10 +248,12 @@ class FrontlineWidget {
 
       this.connect(name, email, this.organization_id, this.department_id)
 
-      this._io.on('message_received', message => {
-        this.agent = message.sender
-        this.appendMessage(message)
-      })
+      this._io.on('message', message => this.appendMessage(message))
+
+      this._io.on(
+        'agent_joined',
+        user => (this.agent = user.agent[Object.keys(user.agent)])
+      )
     }
   }
 
