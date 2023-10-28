@@ -117,13 +117,18 @@ class FrontlineWidget {
     inputChatWidget.addEventListener('keypress', e => {
       if (e.key === 'Enter') {
         const payload = {
-          message: { text: e.target.value, type: 'visitor', to: this.agent },
-          sender: { name: this.__name, email: this.__email },
+          text: e.target.value,
+          user: {
+            organization_id: this.organization_id,
+            department_id: this.department_id,
+            email: this.__email,
+          },
+          type: 'visitor',
         }
 
         this._io.emit('message', payload)
 
-        this.appendMessage(payload.message)
+        this.appendMessage(payload)
         e.target.value = ''
       }
     })
@@ -217,20 +222,17 @@ class FrontlineWidget {
   }
 
   connect(name, email, organization_id, department_id) {
-    this._io.emit('user_connected', {
+    this._io.emit('visitor_connected', {
       name,
       email,
       organization_id,
       department_id,
-      type: 'visitor',
     })
   }
 
   startChat(name, email) {
     var validRegex =
       /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-
-    console.log('Email : ', email)
 
     if (email.match(validRegex) && name !== '') {
       const widget__form = document.getElementById('widget__form')
@@ -259,12 +261,14 @@ class FrontlineWidget {
 
   appendMessage(message) {
     const ul = document.getElementById('widget__messages')
+
+    console.log('Message : ', message)
     const li = document.createElement('li')
     li.classList.add(
       `${message.type === 'visitor' ? 'visitor-msg' : 'agent-msg'}`
     )
 
-    li.innerHTML = message.text
+    li.innerHTML = `<div class="flex flex-col">${message.text}</div>`
 
     ul.appendChild(li)
   }
