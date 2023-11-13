@@ -122,6 +122,8 @@ class FrontlineWidget {
           type: 'visitor',
         }
 
+        console.log('Payload : ', payload)
+
         this._io.emit('to_agent', payload)
 
         this.appendMessage(payload)
