@@ -118,15 +118,11 @@ class FrontlineWidget {
       if (e.key === 'Enter') {
         const payload = {
           text: e.target.value,
-          user: {
-            organization_id: this.organization_id,
-            department_id: this.department_id,
-            email: this.__email,
-          },
+          email: this.__email,
           type: 'visitor',
         }
 
-        this._io.emit('message', payload)
+        this._io.emit('to_agent', payload)
 
         this.appendMessage(payload)
         e.target.value = ''
@@ -251,18 +247,17 @@ class FrontlineWidget {
       this.connect(name, email, this.organization_id, this.department_id)
 
       this._io.on('message', message => this.appendMessage(message))
+      this._io.on('visitor_connected', ({ messages }) => {
+        messages.forEach(message => this.appendMessage(message))
+      })
 
-      this._io.on(
-        'agent_joined',
-        user => (this.agent = user.agent[Object.keys(user.agent)])
-      )
+      this._io.on('agent_joined', payload => console.log(payload))
     }
   }
 
   appendMessage(message) {
     const ul = document.getElementById('widget__messages')
 
-    console.log('Message : ', message)
     const li = document.createElement('li')
     li.classList.add(
       `${message.type === 'visitor' ? 'visitor-msg' : 'agent-msg'}`
@@ -271,6 +266,8 @@ class FrontlineWidget {
     li.innerHTML = `<div class="flex flex-col">${message.text}</div>`
 
     ul.appendChild(li)
+
+    ul.scrollTop = ul.scrollHeight
   }
 }
 
