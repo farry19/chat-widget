@@ -1,7 +1,7 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
 import { styles, CLOSE_ICON, MESSAGE_ICON } from './assets.js'
 
-const ENDPOINT = `http://ec2-34-199-62-141.compute-1.amazonaws.com:8080`
+const ENDPOINT = `http://localhost:8080`
 const API_ENDPOINT = `${ENDPOINT}/api/v1/widget-settings`
 const WS_ENDPOINT = `${ENDPOINT}`
 
@@ -235,6 +235,9 @@ class FrontlineWidget {
     if (email.match(validRegex) && name !== '') {
       const widget__form = document.getElementById('widget__form')
       const widget__chat = document.getElementById('widget__chat')
+
+      this.__name = name
+      this.__email = email
 
       localStorage.setItem('__fl__name', name)
       localStorage.setItem('__fl__email', email)
