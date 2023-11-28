@@ -2,9 +2,9 @@ import { io } from 'https://cdn.socket.io/4.5.4/socket.io.esm.min.js'
 import { styles, CLOSE_ICON, MESSAGE_ICON } from './assets.js'
 
 // const ENDPOINT = `http://localhost:8080`
-const ENDPOINT = `wss://api.frontlinesupport.io/`
-const API_ENDPOINT = `${ENDPOINT}/widget-settings`
-const WS_ENDPOINT = `${ENDPOINT}`
+const ENDPOINT = `api.frontlinesupport.io`
+const API_ENDPOINT = `${ENDPOINT}/v1`
+const WS_ENDPOINT = `wss://${ENDPOINT}`
 
 class FrontlineWidget {
   constructor(position = 'bottom-right') {
