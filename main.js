@@ -1,7 +1,7 @@
-import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
+import { io } from 'https://cdn.socket.io/4.5.4/socket.io.esm.min.js'
 import { styles, CLOSE_ICON, MESSAGE_ICON } from './assets.js'
 
-// const ENDPOINT = `http://localhost:8443`
+// const ENDPOINT = `http://localhost:8080`
 const ENDPOINT = `https://api.frontlinesupport.io/v1`
 const API_ENDPOINT = `${ENDPOINT}/widget-settings`
 const WS_ENDPOINT = `${ENDPOINT}`
@@ -122,8 +122,6 @@ class FrontlineWidget {
           email: this.__email,
           type: 'visitor',
         }
-
-        console.log('Payload : ', payload)
 
         this._io.emit('to_agent', payload)
 
