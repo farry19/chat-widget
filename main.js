@@ -54,7 +54,7 @@ class FrontlineWidget {
 
     const container = document.createElement("div");
     container.style.position = "fixed";
-
+    contianer.style.z-index = '999999';
     Object.keys(this.position).forEach(
       (key) => (container.style[key] = this.position[key])
     );
