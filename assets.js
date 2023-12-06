@@ -1,33 +1,56 @@
 export const styles = `
-    .widget__container *, .widget__main * {
+/**Scrollbar Style**/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px lightgrey;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: lightgrey;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey;
+},
+    .__fl__widget__container *, .__fl__widget__main * {
         box-sizing: border-box;
+        z-index:99999;
     }        
     h3, p, input {
         margin: 0;
         padding: 0;
     }
-    .widget__main {
+    .__fl__widget__main {
         position: relative;
     }
-    .widget__chat {
+    .__fl__widget__chat {
         position: absolute;
         height: 60vh;
     }
-    .widget__container {
+    .__fl__widget__container {
         box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
         width: 20vw;
-        overflow: auto;
+        overflow: hidden;
         right: -25px;
         bottom: 75px;
         position: absolute;
         transition: max-height .2s ease;
         font-family: Helvetica, Arial ,sans-serif;
-        background-color: #e6e6e6a6;
+        background-color: #e6e6e6;
         border: 1px solid rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         box-sizing: border-box;
     }
-    .widget__icon {
+    .__fl__widget__icon {
         cursor: pointer;
         width: 50%;
         position: absolute;
@@ -35,10 +58,10 @@ export const styles = `
         left: calc(50% - 12px);
         transition: transform .3s ease;
     }
-    .widget__hidden {
+    .__fl__widget__hidden {
         display: none;
     }
-    .button__container {
+    .__fl__button__container {
         border: none;
         background-color: #fec400;
         width: 50px;
@@ -46,16 +69,16 @@ export const styles = `
         border-radius: 50%;
         cursor: pointer;
     }
-    .widget__container.hidden {
+    .__fl__widget__container.hidden {
         max-height: 0px;
     }
-    .widget__header {
+    .__fl__widget__header {
         padding: 1rem;
         background-color: #fec400;
         color: #000000;
         text-align: center;
     }
-    .widget__header h3 {
+    .__fl__widget__header h3 {
         font-size: 1rem;
         font-weight: 400;
         margin-bottom: 8px;
@@ -108,7 +131,7 @@ export const styles = `
         outline: none;
         background-color: #fff;
     }
-    #widget__chat ul{
+    #__fl__widget__chat ul{
         height: 350px;
         overflow: hidden;
         overflow-y: auto;
@@ -116,7 +139,7 @@ export const styles = `
         list-style:none;
         margin-left:-15px;
     }
-    #widget__chat ul .visitor-msg{
+    #__fl__widget__chat ul .visitor-msg{
         float: left;
         color: #878484;
         position: relative;
@@ -130,7 +153,7 @@ export const styles = `
         max-width: 81%;
         font: 12px/16px "Noto Sans", sans-serif;
     }
-    #widget__chat ul .visitor-msg:before {
+    #__fl__widget__chat ul .visitor-msg:before {
         position: absolute;
         top: 0px;
         width: 25px;
@@ -141,7 +164,7 @@ export const styles = `
         left: -32px;
         background-image: url(https://github.com/ortichon.png);
     }
-    #widget__chat ul .visitor-msg:after {
+    #__fl__widget__chat ul .visitor-msg:after {
         border-left: 10px solid #ffffff00;
         left: -10px;
         position: absolute;
@@ -151,7 +174,7 @@ export const styles = `
         height: 0;
         border-top: 10px solid #ffffff;
     }
-    #widget__chat ul .agent-msg {
+    #__fl__widget__chat ul .agent-msg {
         float: right;
         color: black;
         position: relative;
@@ -165,7 +188,7 @@ export const styles = `
         word-wrap: break-word;
         max-width: 81%;
     }
-    #widget__chat ul .agent-msg:before {
+    #__fl__widget__chat ul .agent-msg:before {
         position: absolute;
         top: -5px;
         width: 25px;
@@ -176,7 +199,7 @@ export const styles = `
         right: -35px;
         background-image: url(https://github.com/Thatkookooguy.png);
     }
-    #widget__chat ul .agent-msg:after {
+    #__fl__widget__chat ul .agent-msg:after {
         position: absolute;
         top: 10px;
         content: "";
@@ -186,16 +209,16 @@ export const styles = `
         border-right: 10px solid transparent;
         right: -10px;
     }
-`
+`;
 
 export const MESSAGE_ICON = `
     <svg width="24" height="24" viewBox="-0.06 -0.075 0.72 0.72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-message">
         <path d="M.281.36H.51A.03.03 0 0 0 .54.33V.09A.03.03 0 0 0 .51.06H.09a.03.03 0 0 0-.03.03v.24a.03.03 0 0 0 .03.03.03.03 0 0 1 .03.03v.09L.281.36zM.09 0h.42A.09.09 0 0 1 .6.09v.24a.09.09 0 0 1-.09.09H.301L.108.564A.03.03 0 0 1 .06.54V.42A.06.06 0 0 1 0 .36V.09A.09.09 0 0 1 .09 0z"/>
     </svg>
-`
+`;
 
 export const CLOSE_ICON = `
     <svg width="24" height="24" viewBox="0 0 0.72 0.72" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color">
         <path d="M.402.36.591.171A.03.03 0 1 0 .548.128L.36.318.171.129a.03.03 0 0 0-.043.043l.189.189L.128.55a.03.03 0 0 0 0 .043.03.03 0 0 0 .043 0L.36.404l.189.189a.03.03 0 0 0 .043 0 .03.03 0 0 0 0-.043Z" style="fill:#000"/>
     </svg>
-`
+`;
