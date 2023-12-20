@@ -92,7 +92,18 @@ class FrontlineWidget {
     buttonContainer.appendChild(this.closeIcon);
     buttonContainer.addEventListener("click", this.toggleOpen.bind(this));
 
+    // const inputChatWidget = document.createElement("input");
+    // inputChatWidget.classList.add("chat__input");
+    // inputChatWidget.id = "chat__input";
+
+    const img = document.createElement("img");
+    img.src = "/public/attach-circle.png";
+    const TextDiv = document.createElement("div");
+    TextDiv.classList.add("Text__Div");
     const inputChatWidget = document.createElement("input");
+    inputChatWidget.placeholder = "Reply ...";
+    TextDiv.appendChild(inputChatWidget);
+    TextDiv.appendChild(img);
     inputChatWidget.classList.add("chat__input");
     inputChatWidget.id = "chat__input";
 
@@ -116,7 +127,9 @@ class FrontlineWidget {
      * Append the widget's content and the button to the container
      */
 
-    this.widgetContainer.appendChild(inputChatWidget);
+    this.widgetContainer.appendChild(TextDiv);
+
+    // this.widgetContainer.appendChild(inputChatWidget);
 
     container.appendChild(this.widgetContainer);
     container.appendChild(buttonContainer);
@@ -137,21 +150,25 @@ class FrontlineWidget {
         e.target.value = "";
       }
     });
+    // document.addEventListener("DOMContentLoaded", function () {
+    //   let startChatButton = document.getElementById("start-chat");
+    //   startChatButton.addEventListener("click", (e) => {
+    //     let widgetChat = document.getElementsByClassName("Text__Div");
+    //     widgetChat.style.display = "flex";
+    //   });
+    // });
   }
 
   createWidgetContent() {
     this.widgetContainer.innerHTML = `
       <main class="__fl__widget__main">
         <header class="__fl__widget__header">
-            <h3>Start a conversation</h3>
-            <p>We usually respond within a few hours</p>
+            <h3 style="font-weight:550;">Give us some details before continuing</h3>
         </header>
         <form id="__fl__widget__form">
             <div id="form__name" class="form__field">
-                <label for="name">Name</label>
             </div>
             <div id="form__email" class="form__field">
-                <label for="email">Email</label>
             </div>
         </form>
         <div id="__fl__widget__chat" class="__fl__widget__hidden">
@@ -197,18 +214,24 @@ class FrontlineWidget {
         this.widgetContainer.classList.remove("__fl__widget__hidden");
 
         this.__name.id = "name";
-        this.__name.placeholder = "Enter your name";
+        this.__name.placeholder = "Name";
 
         form__name.appendChild(this.__name);
 
         const form__email = document.getElementById("form__email");
 
         this.__email.id = "email";
-        this.__email.placeholder = "Enter your email";
+        this.__email.placeholder = "Email";
 
         form__email.appendChild(this.__email);
 
         const startButton = document.createElement("button");
+        startButton.setAttribute("id", "start-chat");
+        startButton.style.textAlign = "center";
+        startButton.style.padding = "10px";
+        startButton.style.background = "#FEC400";
+        startButton.style.color = "black";
+        startButton.style.fontWeight = "500";
         startButton.innerHTML = "Start Chat";
 
         widget__form.appendChild(startButton);

@@ -38,14 +38,14 @@ export const styles = `
     }
     .__fl__widget__container {
         box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
-        width: 20vw;
+        width: 18vw;
         overflow: hidden;
         right: -25px;
         bottom: 75px;
         position: absolute;
         transition: max-height .2s ease;
         font-family: Helvetica, Arial ,sans-serif;
-        background-color: #e6e6e6;
+        background-color: white;
         border: 1px solid rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         box-sizing: border-box;
@@ -54,8 +54,8 @@ export const styles = `
         cursor: pointer;
         width: 50%;
         position: absolute;
-        top: calc(50% - 12px);
-        left: calc(50% - 12px);
+        top: calc(50% - 15px);
+        left: calc(50% - 16px);
         transition: transform .3s ease;
     }
     .__fl__widget__hidden {
@@ -97,9 +97,9 @@ export const styles = `
     }
     .form__field input,
     .form__field textarea {
-        border: 1px solid #fec400;
+        border: 1px solid #F5F5F5;
         border-radius: 0.5rem;
-        padding: 0.5rem;
+        padding: .8rem;
         background-color: #FFFFFF;
     }
     .form__field textarea::placeholder {
@@ -148,11 +148,50 @@ export const styles = `
         padding: 14px;
         margin: 0px 0px 20px 40px;
         border-radius: 10px;
-        background: white;
+        background: #F1F7FF;
         word-wrap: break-word;
         max-width: 81%;
         font: 12px/16px "Noto Sans", sans-serif;
     }
+    .Text__Div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-left: 10px;
+        padding-right: 10px;
+        align-items: center;
+        padding-top:5px;
+        padding-bottom:5px;
+        // display:none;
+    }
+    .Text__Div:before {
+        content: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"%3E%3Cpath d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M9 9H9.01" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M15 9H15.01" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3C/svg%3E');
+        display: inline-block;
+        width: 30px; /* Adjust width and height as needed */
+        height: 30px;
+        padding: 5px 5px 0px 5px;
+        cursor:pointer;
+      }
+      .Text__Div input{
+padding:10px;
+background:none;
+      }
+      .Text__Div img{
+        padding:5px;
+        cursor:pointer;
+              }
+      
+        
+      .Text__Div:after {
+        content: url('/public/send.png'); /* Replace 'path/to/your/image.png' with the actual path to your image */
+        display: block;
+        font-size:20px;
+        width: 35px; /* Set width and height as needed */
+        height: 40px;
+        cursor:pointer;
+      }
+      
+         
     #__fl__widget__chat ul .visitor-msg:before {
         position: absolute;
         top: 0px;
@@ -161,7 +200,7 @@ export const styles = `
         border-radius: 25px;
         content: "";
         background-size: cover;
-        left: -32px;
+        left: -35px;
         background-image: url(https://github.com/ortichon.png);
     }
     #__fl__widget__chat ul .visitor-msg:after {
@@ -172,7 +211,7 @@ export const styles = `
         content: "";
         width: 0;
         height: 0;
-        border-top: 10px solid #ffffff;
+        border-top: 10px solid #F1F7FF;
     }
     #__fl__widget__chat ul .agent-msg {
         float: right;
@@ -212,13 +251,17 @@ export const styles = `
 `;
 
 export const MESSAGE_ICON = `
-    <svg width="24" height="24" viewBox="-0.06 -0.075 0.72 0.72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-message">
-        <path d="M.281.36H.51A.03.03 0 0 0 .54.33V.09A.03.03 0 0 0 .51.06H.09a.03.03 0 0 0-.03.03v.24a.03.03 0 0 0 .03.03.03.03 0 0 1 .03.03v.09L.281.36zM.09 0h.42A.09.09 0 0 1 .6.09v.24a.09.09 0 0 1-.09.09H.301L.108.564A.03.03 0 0 1 .06.54V.42A.06.06 0 0 1 0 .36V.09A.09.09 0 0 1 .09 0z"/>
-    </svg>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.6665 12C22.6665 17.16 18.1865 21.3333 12.6665 21.3333L11.4265 22.8267L10.6932 23.7067C10.0665 24.4534 8.8665 24.2933 8.45317 23.4L6.6665 19.4666C4.23984 17.76 2.6665 15.0533 2.6665 12C2.6665 6.83999 7.1465 2.66666 12.6665 2.66666C16.6932 2.66666 20.1732 4.89333 21.7332 8.09333C22.3332 9.28 22.6665 10.6 22.6665 12Z" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M29.3334 17.1467C29.3334 20.2 27.7601 22.9067 25.3334 24.6134L23.5468 28.5466C23.1334 29.44 21.9334 29.6134 21.3067 28.8534L19.3334 26.48C16.1067 26.48 13.2268 25.0533 11.4268 22.8267L12.6667 21.3333C18.1867 21.3333 22.6667 17.16 22.6667 12C22.6667 10.6 22.3334 9.28002 21.7334 8.09335C26.0934 9.09335 29.3334 12.7733 29.3334 17.1467Z" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9.3335 12H16.0002" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 `;
 
 export const CLOSE_ICON = `
-    <svg width="24" height="24" viewBox="0 0 0.72 0.72" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color">
-        <path d="M.402.36.591.171A.03.03 0 1 0 .548.128L.36.318.171.129a.03.03 0 0 0-.043.043l.189.189L.128.55a.03.03 0 0 0 0 .043.03.03 0 0 0 .043 0L.36.404l.189.189a.03.03 0 0 0 .043 0 .03.03 0 0 0 0-.043Z" style="fill:#000"/>
-    </svg>
+<svg width="32" height="32" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.4182 24.5622C19.5476 24.5622 24.5625 19.5473 24.5625 13.4179C24.5625 7.28855 19.5476 2.27362 13.4182 2.27362C7.28885 2.27362 2.27393 7.28855 2.27393 13.4179C2.27393 19.5473 7.28885 24.5622 13.4182 24.5622Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.2642 16.5717L16.5718 10.2641" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16.5718 16.5717L10.2642 10.2641" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 `;
