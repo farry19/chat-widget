@@ -209,16 +209,19 @@ export const styles = `
         border-right: 10px solid transparent;
         right: -10px;
     }
-`;
+    .__fl__widget__media {
+        width: 25%;
+    }
+`
 
 export const MESSAGE_ICON = `
     <svg width="24" height="24" viewBox="-0.06 -0.075 0.72 0.72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin" class="jam jam-message">
         <path d="M.281.36H.51A.03.03 0 0 0 .54.33V.09A.03.03 0 0 0 .51.06H.09a.03.03 0 0 0-.03.03v.24a.03.03 0 0 0 .03.03.03.03 0 0 1 .03.03v.09L.281.36zM.09 0h.42A.09.09 0 0 1 .6.09v.24a.09.09 0 0 1-.09.09H.301L.108.564A.03.03 0 0 1 .06.54V.42A.06.06 0 0 1 0 .36V.09A.09.09 0 0 1 .09 0z"/>
     </svg>
-`;
+`
 
 export const CLOSE_ICON = `
     <svg width="24" height="24" viewBox="0 0 0.72 0.72" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color">
         <path d="M.402.36.591.171A.03.03 0 1 0 .548.128L.36.318.171.129a.03.03 0 0 0-.043.043l.189.189L.128.55a.03.03 0 0 0 0 .043.03.03 0 0 0 .043 0L.36.404l.189.189a.03.03 0 0 0 .043 0 .03.03 0 0 0 0-.043Z" style="fill:#000"/>
     </svg>
-`;
+`
