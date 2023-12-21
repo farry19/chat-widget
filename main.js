@@ -52,9 +52,11 @@ class FrontlineWidget {
      * Create and append a div element to the document body
      */
 
-    const container = document.createElement('div')
-    container.style.position = 'fixed'
-    container.style.zIndex = '999999'
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.zIndex = '999999';
+
+
     Object.keys(this.position).forEach(
       key => (container.style[key] = this.position[key])
     )
