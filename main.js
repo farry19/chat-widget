@@ -150,12 +150,28 @@ class FrontlineWidget {
         e.target.value = "";
       }
     });
-    // document.addEventListener("DOMContentLoaded", function () {
-    //   let startChatButton = document.getElementById("start-chat");
-    //   startChatButton.addEventListener("click", (e) => {
-    //     let widgetChat = document.getElementsByClassName("Text__Div");
-    //     widgetChat.style.display = "flex";
-    //   });
+    // inputChatWidget.addEventListener("keypress", (e) => {
+    //   if (e.key === "Enter") {
+    //     const payload = {
+    //       text: e.target.value,
+    //       email: this.__email,
+    //       type: "visitor",
+    //     };
+
+    //     console.log("Payload : ", payload);
+
+    //     this._io.emit("to_agent", payload);
+
+    //     this.appendMessage(payload);
+    //     e.target.value = "";
+    //   }
+    // });
+    // const form = document.getElementById("__fl__widget__form");
+    // let startChatButton = document.getElementById("start-chat");
+    // $("#__fl__widget__form").submit(function (event) {
+    //   event.preventDefault();
+    //   let widgetChat = document.getElementsByClassName("Text__Div");
+    //   widgetChat.style.display = "flex !important";
     // });
   }
 
@@ -287,6 +303,10 @@ class FrontlineWidget {
       });
 
       this._io.on("agent_joined", (payload) => console.log(payload));
+      let widgetChat = document.getElementsByClassName("Text__Div")[0]; // Get the first element with the class 'Text__Div'
+      if (widgetChat) {
+        widgetChat.style.display = "flex"; // Apply style to the element if found
+      }
     }
   }
 
