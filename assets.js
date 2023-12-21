@@ -154,7 +154,6 @@ export const styles = `
         font: 12px/16px "Noto Sans", sans-serif;
     }
     .Text__Div{
-        display: flex;
         flex-direction: row;
         justify-content: space-around;
         padding-left: 10px;
