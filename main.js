@@ -1,10 +1,10 @@
-import { io } from 'https://cdn.socket.io/4.5.4/socket.io.esm.min.js'
+import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
 import { styles, CLOSE_ICON, MESSAGE_ICON } from './assets.js'
 
-// const ENDPOINT = `http://localhost:8080`
-const ENDPOINT = `api.frontlinesupport.io`
-const API_ENDPOINT = `${ENDPOINT}/v1`
-const WS_ENDPOINT = `wss://${ENDPOINT}`
+const ENDPOINT = `http://localhost:8080`
+// const ENDPOINT = `https://api.frontlinesupport.io/`;
+const API_ENDPOINT = `${ENDPOINT}/api/v1/widget-settings`
+const WS_ENDPOINT = `${ENDPOINT}`
 
 class FrontlineWidget {
   constructor(position = 'bottom-right') {
@@ -52,10 +52,8 @@ class FrontlineWidget {
      * Create and append a div element to the document body
      */
 
-    const container = document.createElement("div");
-    container.style.position = "fixed";
-    container.style.zIndex = '999999';
-
+    const container = document.createElement('div')
+    container.style.position = 'fixed'
 
     Object.keys(this.position).forEach(
       key => (container.style[key] = this.position[key])
@@ -91,7 +89,18 @@ class FrontlineWidget {
     buttonContainer.appendChild(this.closeIcon)
     buttonContainer.addEventListener('click', this.toggleOpen.bind(this))
 
+    // const inputChatWidget = document.createElement("input");
+    // inputChatWidget.classList.add("chat__input");
+    // inputChatWidget.id = "chat__input";
+
+    const img = document.createElement('img')
+    img.src = '/public/attach-circle.png'
+    const TextDiv = document.createElement('div')
+    TextDiv.classList.add('Text__Div')
     const inputChatWidget = document.createElement('input')
+    inputChatWidget.placeholder = 'Reply ...'
+    TextDiv.appendChild(inputChatWidget)
+    TextDiv.appendChild(img)
     inputChatWidget.classList.add('chat__input')
     inputChatWidget.id = 'chat__input'
 
@@ -115,7 +124,9 @@ class FrontlineWidget {
      * Append the widget's content and the button to the container
      */
 
-    this.widgetContainer.appendChild(inputChatWidget)
+    this.widgetContainer.appendChild(TextDiv)
+
+    // this.widgetContainer.appendChild(inputChatWidget);
 
     container.appendChild(this.widgetContainer)
     container.appendChild(buttonContainer)
@@ -127,27 +138,50 @@ class FrontlineWidget {
           email: this.__email,
           type: 'visitor',
         }
+
+        console.log('Payload : ', payload)
+
         this._io.emit('to_agent', payload)
 
         this.appendMessage(payload)
         e.target.value = ''
       }
     })
+    // inputChatWidget.addEventListener("keypress", (e) => {
+    //   if (e.key === "Enter") {
+    //     const payload = {
+    //       text: e.target.value,
+    //       email: this.__email,
+    //       type: "visitor",
+    //     };
+
+    //     console.log("Payload : ", payload);
+
+    //     this._io.emit("to_agent", payload);
+
+    //     this.appendMessage(payload);
+    //     e.target.value = "";
+    //   }
+    // });
+    // const form = document.getElementById("__fl__widget__form");
+    // let startChatButton = document.getElementById("start-chat");
+    // $("#__fl__widget__form").submit(function (event) {
+    //   event.preventDefault();
+    //   let widgetChat = document.getElementsByClassName("Text__Div");
+    //   widgetChat.style.display = "flex !important";
+    // });
   }
 
   createWidgetContent() {
     this.widgetContainer.innerHTML = `
       <main class="__fl__widget__main">
         <header class="__fl__widget__header">
-            <h3>Start a conversation</h3>
-            <p>We usually respond within a few hours</p>
+            <h3 style="font-weight:550;">Give us some details before continuing</h3>
         </header>
         <form id="__fl__widget__form">
             <div id="form__name" class="form__field">
-                <label for="name">Name</label>
             </div>
             <div id="form__email" class="form__field">
-                <label for="email">Email</label>
             </div>
         </form>
         <div id="__fl__widget__chat" class="__fl__widget__hidden">
@@ -193,18 +227,24 @@ class FrontlineWidget {
         this.widgetContainer.classList.remove('__fl__widget__hidden')
 
         this.__name.id = 'name'
-        this.__name.placeholder = 'Enter your name'
+        this.__name.placeholder = 'Name'
 
         form__name.appendChild(this.__name)
 
         const form__email = document.getElementById('form__email')
 
         this.__email.id = 'email'
-        this.__email.placeholder = 'Enter your email'
+        this.__email.placeholder = 'Email'
 
         form__email.appendChild(this.__email)
 
         const startButton = document.createElement('button')
+        startButton.setAttribute('id', 'start-chat')
+        startButton.style.textAlign = 'center'
+        startButton.style.padding = '10px'
+        startButton.style.background = '#FEC400'
+        startButton.style.color = 'black'
+        startButton.style.fontWeight = '500'
         startButton.innerHTML = 'Start Chat'
 
         widget__form.appendChild(startButton)
@@ -260,6 +300,10 @@ class FrontlineWidget {
       })
 
       this._io.on('agent_joined', payload => console.log(payload))
+      let widgetChat = document.getElementsByClassName('Text__Div')[0] // Get the first element with the class 'Text__Div'
+      if (widgetChat) {
+        widgetChat.style.display = 'flex' // Apply style to the element if found
+      }
     }
   }
 
@@ -271,11 +315,7 @@ class FrontlineWidget {
       `${message.type === 'visitor' ? 'visitor-msg' : 'agent-msg'}`
     )
 
-    const output = message.text.ok
-      ? `<img src="${API_ENDPOINT}/_document/${message.text.filepath}" class="__fl__widget__media" />`
-      : message.text
-
-    li.innerHTML = `<div class="flex flex-col">${output}</div>`
+    li.innerHTML = `<div class="flex flex-col">${message.text}</div>`
 
     ul.appendChild(li)
 
