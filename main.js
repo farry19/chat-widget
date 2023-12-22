@@ -153,29 +153,6 @@ class FrontlineWidget {
         e.target.value = ''
       }
     })
-    // inputChatWidget.addEventListener("keypress", (e) => {
-    //   if (e.key === "Enter") {
-    //     const payload = {
-    //       text: e.target.value,
-    //       email: this.__email,
-    //       type: "visitor",
-    //     };
-
-    //     console.log("Payload : ", payload);
-
-    //     this._io.emit("to_agent", payload);
-
-    //     this.appendMessage(payload);
-    //     e.target.value = "";
-    //   }
-    // });
-    // const form = document.getElementById("__fl__widget__form");
-    // let startChatButton = document.getElementById("start-chat");
-    // $("#__fl__widget__form").submit(function (event) {
-    //   event.preventDefault();
-    //   let widgetChat = document.getElementsByClassName("Text__Div");
-    //   widgetChat.style.display = "flex !important";
-    // });
   }
 
   createWidgetContent() {
