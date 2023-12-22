@@ -1,3 +1,5 @@
+import { API_ENDPOINT } from './constants.js'
+
 export const styles = `
 /**Scrollbar Style**/
 /* width */
@@ -137,7 +139,7 @@ export const styles = `
         overflow-y: auto;
         padding-top:25px;
         list-style:none;
-        margin-left:-15px;
+        padding: 15px;
     }
     #__fl__widget__chat ul .visitor-msg{
         float: left;
@@ -164,44 +166,42 @@ export const styles = `
         padding-bottom:5px;
         display:none;
     }
-    .Text__Div:before {
+    .Text__Div #emoji-button {
         content: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"%3E%3Cpath d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M9 9H9.01" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M15 9H15.01" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3C/svg%3E');
         display: inline-block;
-        width: 30px; /* Adjust width and height as needed */
-        height: 30px;
-        padding: 5px 5px 0px 5px;
+        width: 24px; /* Adjust width and height as needed */
+        height: 24px;
         cursor:pointer;
-      }
-      .Text__Div input{
-padding:10px;
-background:none;
-      }
-      .Text__Div img{
+    }
+    .Text__Div input{
+        padding: 10px;
+        background:none;
+    }
+    .Text__Div img{
         padding:5px;
         cursor:pointer;
-              }
-      
-        
-      .Text__Div:after {
+    }
+    
+    .Text__Div:after {
         content: url('/public/send.png'); /* Replace 'path/to/your/image.png' with the actual path to your image */
         display: block;
         font-size:20px;
         width: 35px; /* Set width and height as needed */
         height: 40px;
         cursor:pointer;
-      }
-      
+    }
          
     #__fl__widget__chat ul .visitor-msg:before {
         position: absolute;
         top: 0px;
-        width: 25px;
-        height: 25px;
-        border-radius: 25px;
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
         content: "";
         background-size: cover;
-        left: -35px;
-        background-image: url(https://github.com/ortichon.png);
+        left: -42px;
+        background-color: #FF9900;
+        background-image: url(${API_ENDPOINT}/_document/images/visitor.png);
     }
     #__fl__widget__chat ul .visitor-msg:after {
         border-left: 10px solid #ffffff00;
@@ -230,13 +230,14 @@ background:none;
     #__fl__widget__chat ul .agent-msg:before {
         position: absolute;
         top: -5px;
-        width: 25px;
-        height: 25px;
-        border-radius: 25px;
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
         content: "";
         background-size: cover;
-        right: -35px;
-        background-image: url(https://github.com/Thatkookooguy.png);
+        right: -42px;
+        background-color: #9900FF;
+        background-image: url(${API_ENDPOINT}/_document/images/agent.png);
     }
     #__fl__widget__chat ul .agent-msg:after {
         position: absolute;
@@ -248,7 +249,10 @@ background:none;
         border-right: 10px solid transparent;
         right: -10px;
     }
-`;
+    .__fl__widget__media {
+        width: 200px;
+    }
+`
 
 export const MESSAGE_ICON = `
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -256,7 +260,7 @@ export const MESSAGE_ICON = `
 <path d="M29.3334 17.1467C29.3334 20.2 27.7601 22.9067 25.3334 24.6134L23.5468 28.5466C23.1334 29.44 21.9334 29.6134 21.3067 28.8534L19.3334 26.48C16.1067 26.48 13.2268 25.0533 11.4268 22.8267L12.6667 21.3333C18.1867 21.3333 22.6667 17.16 22.6667 12C22.6667 10.6 22.3334 9.28002 21.7334 8.09335C26.0934 9.09335 29.3334 12.7733 29.3334 17.1467Z" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M9.3335 12H16.0002" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-`;
+`
 
 export const CLOSE_ICON = `
 <svg width="32" height="32" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -264,4 +268,4 @@ export const CLOSE_ICON = `
 <path d="M10.2642 16.5717L16.5718 10.2641" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M16.5718 16.5717L10.2642 10.2641" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-`;
+`

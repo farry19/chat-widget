@@ -1,10 +1,7 @@
 import { io } from 'https://cdn.socket.io/4.4.1/socket.io.esm.min.js'
+import { createPopup } from 'https://unpkg.com/@picmo/popup-picker@latest/dist/index.js?module'
 import { styles, CLOSE_ICON, MESSAGE_ICON } from './assets.js'
-
-const ENDPOINT = `http://localhost:8080`
-// const ENDPOINT = `https://api.frontlinesupport.io/`;
-const API_ENDPOINT = `${ENDPOINT}/api/v1/widget-settings`
-const WS_ENDPOINT = `${ENDPOINT}`
+import { API_ENDPOINT, WS_ENDPOINT } from './constants.js'
 
 class FrontlineWidget {
   constructor(position = 'bottom-right') {
@@ -94,15 +91,26 @@ class FrontlineWidget {
     // inputChatWidget.id = "chat__input";
 
     const img = document.createElement('img')
-    img.src = '/public/attach-circle.png'
     const TextDiv = document.createElement('div')
-    TextDiv.classList.add('Text__Div')
     const inputChatWidget = document.createElement('input')
-    inputChatWidget.placeholder = 'Reply ...'
+    const emojiButton = document.createElement('a')
+    const attachmentButton = document.createElement('a')
+
+    TextDiv.classList.add('Text__Div')
+
+    emojiButton.id = 'emoji-button'
+    attachmentButton.id = 'attachment-button'
+
+    TextDiv.appendChild(emojiButton)
     TextDiv.appendChild(inputChatWidget)
+    TextDiv.appendChild(attachmentButton)
     TextDiv.appendChild(img)
+
+    inputChatWidget.placeholder = 'Reply ...'
     inputChatWidget.classList.add('chat__input')
     inputChatWidget.id = 'chat__input'
+
+    img.src = '/public/attach-circle.png'
 
     // buttonContainer.addEventListener('click', this.toggleOpen.bind(this))
 
@@ -138,8 +146,6 @@ class FrontlineWidget {
           email: this.__email,
           type: 'visitor',
         }
-
-        console.log('Payload : ', payload)
 
         this._io.emit('to_agent', payload)
 
@@ -188,8 +194,6 @@ class FrontlineWidget {
           <ul id="__fl__widget__messages">
             
           </ul>
-
-          
         </div>
       </main>
     `
@@ -299,10 +303,26 @@ class FrontlineWidget {
         messages.forEach(message => this.appendMessage(message))
       })
 
-      this._io.on('agent_joined', payload => console.log(payload))
       let widgetChat = document.getElementsByClassName('Text__Div')[0] // Get the first element with the class 'Text__Div'
+
       if (widgetChat) {
         widgetChat.style.display = 'flex' // Apply style to the element if found
+
+        const trigger = document.getElementById('emoji-button')
+        const picker = createPopup(
+          {},
+          {
+            referenceElement: trigger,
+            triggerElement: trigger,
+          }
+        )
+
+        picker.addEventListener(
+          'emoji:select',
+          event => (message.value = `${message.value} ${event.emoji}`)
+        )
+
+        trigger.addEventListener('click', () => picker.toggle())
       }
     }
   }
@@ -311,11 +331,17 @@ class FrontlineWidget {
     const ul = document.getElementById('__fl__widget__messages')
 
     const li = document.createElement('li')
+
+    li.style.backgroundImage = `${API_ENDPOINT}/_document/images/${message.type}`
     li.classList.add(
       `${message.type === 'visitor' ? 'visitor-msg' : 'agent-msg'}`
     )
 
-    li.innerHTML = `<div class="flex flex-col">${message.text}</div>`
+    const output = message.text.ok
+      ? `<img src="${API_ENDPOINT}/_document/${message.text.filepath}" class="__fl__widget__media" />`
+      : message.text
+
+    li.innerHTML = `<div class="flex flex-col">${output}</div>`
 
     ul.appendChild(li)
 
