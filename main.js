@@ -86,32 +86,26 @@ class FrontlineWidget {
     buttonContainer.appendChild(this.closeIcon)
     buttonContainer.addEventListener('click', this.toggleOpen.bind(this))
 
-    // const inputChatWidget = document.createElement("input");
-    // inputChatWidget.classList.add("chat__input");
-    // inputChatWidget.id = "chat__input";
-
-    const img = document.createElement('img')
     const TextDiv = document.createElement('div')
     const inputChatWidget = document.createElement('input')
     const emojiButton = document.createElement('a')
     const attachmentButton = document.createElement('a')
+    const sendMessageButton = document.createElement('a')
 
     TextDiv.classList.add('Text__Div')
 
     emojiButton.id = 'emoji-button'
     attachmentButton.id = 'attachment-button'
-
-    TextDiv.appendChild(emojiButton)
-    TextDiv.appendChild(inputChatWidget)
-    TextDiv.appendChild(attachmentButton)
-    TextDiv.appendChild(img)
+    sendMessageButton.id = 'send-message-button'
 
     inputChatWidget.placeholder = 'Reply ...'
     inputChatWidget.classList.add('chat__input')
     inputChatWidget.id = 'chat__input'
 
-    img.src = '/public/attach-circle.png'
-
+    TextDiv.appendChild(emojiButton)
+    TextDiv.appendChild(inputChatWidget)
+    TextDiv.appendChild(attachmentButton)
+    TextDiv.appendChild(sendMessageButton)
     // buttonContainer.addEventListener('click', this.toggleOpen.bind(this))
 
     /**
@@ -139,31 +133,35 @@ class FrontlineWidget {
     container.appendChild(this.widgetContainer)
     container.appendChild(buttonContainer)
 
+    const syndicateMessage = () => {
+      const e = document.getElementById('chat__input')
+
+      if (e.value !== '') {
+        const dt = new Date()
+
+        const timestamp = `${dt.getDate()}-${dt.getMonth()}-${dt.getFullYear()} ${dt.getHours()}-${dt.getMinutes()}-${dt.getSeconds()}`
+
+        const payload = {
+          text: e.value,
+          email: this.__email,
+          type: 'visitor',
+          timestamp,
+        }
+
+        this._io.emit('to_agent', payload)
+
+        this.appendMessage(payload)
+        e.value = ''
+      }
+    }
+
     inputChatWidget.addEventListener('keypress', e => {
       if (e.key === 'Enter') {
-        syndicateMessage(e)
+        syndicateMessage()
       }
     })
-  }
 
-  syndicateMessage(e) {
-    if (e.target.value !== '') {
-      const dt = new Date()
-
-      const timestamp = `${dt.getDate()}-${dt.getMonth()}-${dt.getFullYear()} ${dt.getHours()}-${dt.getMinutes()}-${dt.getSeconds()}`
-
-      const payload = {
-        text: e.target.value,
-        email: this.__email,
-        type: 'visitor',
-        timestamp,
-      }
-
-      this._io.emit('to_agent', payload)
-
-      this.appendMessage(payload)
-      e.target.value = ''
-    }
+    sendMessageButton.addEventListener('click', () => syndicateMessage())
   }
 
   createWidgetContent() {
@@ -231,7 +229,6 @@ class FrontlineWidget {
         form__email.appendChild(this.__email)
 
         const startButton = document.createElement('button')
-
         startButton.setAttribute('id', 'start-chat')
         startButton.style.textAlign = 'center'
         startButton.style.padding = '10px'
