@@ -133,28 +133,6 @@ export const styles = `
         outline: none;
         background-color: #fff;
     }
-    #__fl__widget__chat ul{
-        height: 350px;
-        overflow: hidden;
-        overflow-y: auto;
-        padding-top:25px;
-        list-style:none;
-        padding: 15px;
-    }
-    #__fl__widget__chat ul .visitor-msg{
-        float: left;
-        color: #878484;
-        position: relative;
-        clear: both;
-        display: inline-block;
-        padding: 14px;
-        margin: 0px 0px 20px 40px;
-        border-radius: 10px;
-        background: #F1F7FF;
-        word-wrap: break-word;
-        max-width: 81%;
-        font: 12px/16px "Noto Sans", sans-serif;
-    }
     .Text__Div{
         flex-direction: row;
         justify-content: space-around;
@@ -189,7 +167,31 @@ export const styles = `
         height: 40px;
         cursor:pointer;
     }
-         
+    
+    #__fl__widget__chat ul{
+        height: 350px;
+        overflow: hidden;
+        overflow-y: auto;
+        padding-top:25px;
+        list-style:none;
+        padding: 15px;
+    }
+    #__fl__widget__chat ul li{
+        padding: 14px 14px 7px 14px;
+    }
+    #__fl__widget__chat ul .visitor-msg{
+        float: left;
+        color: #878484;
+        position: relative;
+        clear: both;
+        display: inline-block;
+        margin: 0px 0px 20px 40px;
+        border-radius: 10px;
+        background: #F1F7FF;
+        word-wrap: break-word;
+        max-width: 81%;
+        font: 12px/16px "Noto Sans", sans-serif;
+    }
     #__fl__widget__chat ul .visitor-msg:before {
         position: absolute;
         top: 0px;
@@ -218,7 +220,6 @@ export const styles = `
         position: relative;
         clear: both;
         display: inline-block;
-        padding: 14px;
         margin: 0 40px 20px 0;
         font: 12px/16px "Noto Sans", sans-serif;
         border-radius: 10px;
@@ -250,6 +251,9 @@ export const styles = `
     }
     .__fl__widget__media {
         width: 200px;
+    }
+    .__fl__timestamp {
+        font-size: 0.5rem;
     }
 `
 

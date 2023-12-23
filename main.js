@@ -141,18 +141,29 @@ class FrontlineWidget {
 
     inputChatWidget.addEventListener('keypress', e => {
       if (e.key === 'Enter') {
-        const payload = {
-          text: e.target.value,
-          email: this.__email,
-          type: 'visitor',
-        }
-
-        this._io.emit('to_agent', payload)
-
-        this.appendMessage(payload)
-        e.target.value = ''
+        syndicateMessage(e)
       }
     })
+  }
+
+  syndicateMessage(e) {
+    if (e.target.value !== '') {
+      const dt = new Date()
+
+      const timestamp = `${dt.getDate()}-${dt.getMonth()}-${dt.getFullYear()} ${dt.getHours()}-${dt.getMinutes()}-${dt.getSeconds()}`
+
+      const payload = {
+        text: e.target.value,
+        email: this.__email,
+        type: 'visitor',
+        timestamp,
+      }
+
+      this._io.emit('to_agent', payload)
+
+      this.appendMessage(payload)
+      e.target.value = ''
+    }
   }
 
   createWidgetContent() {
@@ -220,6 +231,7 @@ class FrontlineWidget {
         form__email.appendChild(this.__email)
 
         const startButton = document.createElement('button')
+
         startButton.setAttribute('id', 'start-chat')
         startButton.style.textAlign = 'center'
         startButton.style.padding = '10px'
@@ -294,10 +306,10 @@ class FrontlineWidget {
           }
         )
 
-        picker.addEventListener(
-          'emoji:select',
-          event => (message.value = `${message.value} ${event.emoji}`)
-        )
+        picker.addEventListener('emoji:select', event => {
+          const el = document.getElementById('chat__input')
+          el.value = `${el.value} ${event.emoji}`
+        })
 
         trigger.addEventListener('click', () => picker.toggle())
       }
@@ -314,11 +326,11 @@ class FrontlineWidget {
       `${message.type === 'visitor' ? 'visitor-msg' : 'agent-msg'}`
     )
 
-    const output = message.text.ok
+    const output = message.text?.ok
       ? `<img src="${API_ENDPOINT}/_document/${message.text.filepath}" class="__fl__widget__media" />`
       : message.text
 
-    li.innerHTML = `<div class="flex flex-col">${output}</div>`
+    li.innerHTML = `<div class="flex flex-col"><div>${output}</div><div class="__fl__timestamp">${message.timestamp}</div></div>`
 
     ul.appendChild(li)
 
