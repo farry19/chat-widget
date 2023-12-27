@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from './constants.js'
+import { API_ENDPOINT } from "./constants.js";
 
 export const styles = `
 /**Scrollbar Style**/
@@ -40,7 +40,7 @@ export const styles = `
     }
     .__fl__widget__container {
         box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
-        width: 18vw;
+        width: 350px;
         overflow: hidden;
         right: -25px;
         bottom: 75px;
@@ -265,7 +265,7 @@ export const styles = `
     .__fl__timestamp {
         font-size: 0.5rem;
     }
-`
+`;
 
 export const MESSAGE_ICON = `
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -273,7 +273,7 @@ export const MESSAGE_ICON = `
 <path d="M29.3334 17.1467C29.3334 20.2 27.7601 22.9067 25.3334 24.6134L23.5468 28.5466C23.1334 29.44 21.9334 29.6134 21.3067 28.8534L19.3334 26.48C16.1067 26.48 13.2268 25.0533 11.4268 22.8267L12.6667 21.3333C18.1867 21.3333 22.6667 17.16 22.6667 12C22.6667 10.6 22.3334 9.28002 21.7334 8.09335C26.0934 9.09335 29.3334 12.7733 29.3334 17.1467Z" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M9.3335 12H16.0002" stroke="#121212" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-`
+`;
 
 export const CLOSE_ICON = `
 <svg width="32" height="32" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -281,4 +281,4 @@ export const CLOSE_ICON = `
 <path d="M10.2642 16.5717L16.5718 10.2641" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M16.5718 16.5717L10.2642 10.2641" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-`
+`;
