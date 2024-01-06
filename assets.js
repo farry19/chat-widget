@@ -1,8 +1,10 @@
+import { API_ENDPOINT } from "./constants.js";
+
 export const styles = `
 /**Scrollbar Style**/
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0px;
 }
 
 /* Track */
@@ -38,7 +40,7 @@ export const styles = `
     }
     .__fl__widget__container {
         box-shadow: 0 0 18px 8px rgba(0, 0, 0, 0.1), 0 0 32px 32px rgba(0, 0, 0, 0.08);
-        width: 18vw;
+        width: 350px;
         overflow: hidden;
         right: -25px;
         bottom: 75px;
@@ -131,30 +133,7 @@ export const styles = `
         outline: none;
         background-color: #fff;
     }
-    #__fl__widget__chat ul{
-        height: 350px;
-        overflow: hidden;
-        overflow-y: auto;
-        padding-top:25px;
-        list-style:none;
-        margin-left:-15px;
-    }
-    #__fl__widget__chat ul .visitor-msg{
-        float: left;
-        color: #878484;
-        position: relative;
-        clear: both;
-        display: inline-block;
-        padding: 14px;
-        margin: 0px 0px 20px 40px;
-        border-radius: 10px;
-        background: #F1F7FF;
-        word-wrap: break-word;
-        max-width: 81%;
-        font: 12px/16px "Noto Sans", sans-serif;
-    }
     .Text__Div{
-        display: flex;
         flex-direction: row;
         justify-content: space-around;
         padding-left: 10px;
@@ -164,44 +143,76 @@ export const styles = `
         padding-bottom:5px;
         display:none;
     }
-    .Text__Div:before {
+    .Text__Div #emoji-button {
         content: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"%3E%3Cpath d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M9 9H9.01" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3Cpath d="M15 9H15.01" stroke="%230D082C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3C/svg%3E');
         display: inline-block;
-        width: 30px; /* Adjust width and height as needed */
-        height: 30px;
-        padding: 5px 5px 0px 5px;
+        width: 24px; /* Adjust width and height as needed */
+        height: 24px;
         cursor:pointer;
+    }
+    .Text__Div #attachment-button {
+        content: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 24 24" fill="none"%3E%3Cg id="SVGRepo_bgCarrier" stroke-width="0"%3E%3C/g%3E%3Cg id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"%3E%3C/g%3E%3Cg id="SVGRepo_iconCarrier"%3E%3Cpath d="M20 10.9696L11.9628 18.5497C10.9782 19.4783 9.64274 20 8.25028 20C6.85782 20 5.52239 19.4783 4.53777 18.5497C3.55315 17.6211 3 16.3616 3 15.0483C3 13.7351 3.55315 12.4756 4.53777 11.547L12.575 3.96687C13.2314 3.34779 14.1217 3 15.05 3C15.9783 3 16.8686 3.34779 17.525 3.96687C18.1814 4.58595 18.5502 5.4256 18.5502 6.30111C18.5502 7.17662 18.1814 8.01628 17.525 8.63535L9.47904 16.2154C9.15083 16.525 8.70569 16.6989 8.24154 16.6989C7.77738 16.6989 7.33224 16.525 7.00403 16.2154C6.67583 15.9059 6.49144 15.4861 6.49144 15.0483C6.49144 14.6106 6.67583 14.1907 7.00403 13.8812L14.429 6.88674" stroke="%23000000" stroke-width="1.176" stroke-linecap="round" stroke-linejoin="round"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        padding-left: 5px;
+        padding-right: 5px;
+      }   
+      .Text__Div #send-message-button{
+        content: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="%23000000" stroke-width="0.00024"%3E%3Cg id="SVGRepo_bgCarrier" stroke-width="0"%3E%3C/g%3E%3Cg id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"%3E%3C/g%3E%3Cg id="SVGRepo_iconCarrier"%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M3.3938 2.20468C3.70395 1.96828 4.12324 1.93374 4.4679 2.1162L21.4679 11.1162C21.7953 11.2895 22 11.6296 22 12C22 12.3704 21.7953 12.7105 21.4679 12.8838L4.4679 21.8838C4.12324 22.0662 3.70395 22.0317 3.3938 21.7953C3.08365 21.5589 2.93922 21.1637 3.02382 20.7831L4.97561 12L3.02382 3.21692C2.93922 2.83623 3.08365 2.44109 3.3938 2.20468ZM6.80218 13L5.44596 19.103L16.9739 13H6.80218ZM16.9739 11H6.80218L5.44596 4.89699L16.9739 11Z" fill="%23000000"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        background: #fdc300;
+        padding: 10px;
+        border-radius: 50%;
       }
-      .Text__Div input{
-padding:10px;
-background:none;
-      }
-      .Text__Div img{
+    .Text__Div input{
+        padding: 10px;
+        background:none;
+    }
+    .Text__Div img{
         padding:5px;
         cursor:pointer;
-              }
-      
-        
-      .Text__Div:after {
-        content: url('/public/send.png'); /* Replace 'path/to/your/image.png' with the actual path to your image */
-        display: block;
-        font-size:20px;
-        width: 35px; /* Set width and height as needed */
-        height: 40px;
-        cursor:pointer;
-      }
-      
-         
+    }
+    
+    #__fl__widget__chat ul{
+        height: 350px;
+        overflow: hidden;
+        overflow-y: auto;
+        padding-top:25px;
+        list-style:none;
+        padding: 15px;
+    }
+    #__fl__widget__chat ul li{
+        padding: 14px 14px 7px 14px;
+    }
+    #__fl__widget__chat ul .visitor-msg{
+        float: left;
+        color: #878484;
+        position: relative;
+        clear: both;
+        display: inline-block;
+        margin: 0px 0px 20px 40px;
+        border-radius: 10px;
+        background: #F1F7FF;
+        word-wrap: break-word;
+        max-width: 81%;
+        font: 12px/16px "Noto Sans", sans-serif;
+    }
     #__fl__widget__chat ul .visitor-msg:before {
         position: absolute;
         top: 0px;
-        width: 25px;
-        height: 25px;
-        border-radius: 25px;
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
         content: "";
         background-size: cover;
-        left: -35px;
-        background-image: url(https://github.com/ortichon.png);
+        left: -42px;
+        background-color: #FF9900;
+        background-image: url(${API_ENDPOINT}/_document/images/visitor.png);
     }
     #__fl__widget__chat ul .visitor-msg:after {
         border-left: 10px solid #ffffff00;
@@ -219,7 +230,6 @@ background:none;
         position: relative;
         clear: both;
         display: inline-block;
-        padding: 14px;
         margin: 0 40px 20px 0;
         font: 12px/16px "Noto Sans", sans-serif;
         border-radius: 10px;
@@ -230,13 +240,14 @@ background:none;
     #__fl__widget__chat ul .agent-msg:before {
         position: absolute;
         top: -5px;
-        width: 25px;
-        height: 25px;
-        border-radius: 25px;
+        width: 32px;
+        height: 32px;
+        border-radius: 32px;
         content: "";
         background-size: cover;
-        right: -35px;
-        background-image: url(https://github.com/Thatkookooguy.png);
+        right: -42px;
+        background-color: #9900FF;
+        background-image: url(${API_ENDPOINT}/_document/images/agent.png);
     }
     #__fl__widget__chat ul .agent-msg:after {
         position: absolute;
@@ -247,6 +258,12 @@ background:none;
         border-top: 10px solid rgba(25, 147, 147, 0.2);
         border-right: 10px solid transparent;
         right: -10px;
+    }
+    .__fl__widget__media {
+        width: 200px;
+    }
+    .__fl__timestamp {
+        font-size: 0.5rem;
     }
 `;
 

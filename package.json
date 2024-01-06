@@ -11,11 +11,13 @@
   "devDependencies": {
     "vite": "^4.4.5"
   },
-  "dependencies": {},
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  },
   "main": "main.js",
   "repository": "git+https://github.com/farry19/chat-widget.git",
   "keywords": [],
-  "author": "<hsherazch321@gmail.com>",
+  "author": "<farrukhayyaz@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/farry19/chat-widget/issues"
