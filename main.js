@@ -95,7 +95,11 @@ class FrontlineWidget {
     buttonContainer.appendChild(this.widgetIcon);
     buttonContainer.appendChild(this.closeIcon);
     buttonContainer.addEventListener("click", this.toggleOpen.bind(this));
+    buttonContainer.addEventListener("click", check_button.bind(this));
 
+    function check_button() {
+      this.widgetContainer.appendChild(TextDiv);
+    }
     const TextDiv = document.createElement("div");
     const inputChatWidget = document.createElement("input");
     const emojiButton = document.createElement("a");
